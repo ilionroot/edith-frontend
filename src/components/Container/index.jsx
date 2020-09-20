@@ -8,8 +8,8 @@ function Container({ title, placeholder }) {
   const [express, setExpress] = useState({});
   const [id, setId] = useState("");
   const [videos, setVideos] = useState([]);
-  const [titulo, setTitulo] = useState("");
-  const [desc, setDesc] = useState("");
+  // const [titulo, setTitulo] = useState("");
+  // const [desc, setDesc] = useState("");
 
   async function getInfo() {
     const response = await api("/");
