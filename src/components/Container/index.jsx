@@ -56,12 +56,12 @@ function Container({ title, placeholder }) {
             type="text"
             placeholder="Título"
             onChange={(e) => {
-              return setTitulo(e.target.value);
+              // return setTitulo(e.target.value);
             }}
           />
           <textarea
             onChange={(e) => {
-              return setDesc(e.target.value);
+              // return setDesc(e.target.value);
             }}
             placeholder="Descrição...."
           />
