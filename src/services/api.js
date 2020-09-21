@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
-import { port } from '../port.json';
+import { port } from "../port.json";
 
 const api = axios.create({
-  baseURL: `http://localhost:${port}/`
+  baseURL: `https://edithdafelicidade-backend.herokuapp.com/`,
 });
 
 export default api;
