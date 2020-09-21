@@ -8,8 +8,8 @@ function Container({ title, placeholder }) {
   const [express, setExpress] = useState({});
   const [id, setId] = useState("");
   const [videos, setVideos] = useState([]);
-  // const [titulo, setTitulo] = useState("");
-  // const [desc, setDesc] = useState("");
+  const [titulo, setTitulo] = useState("");
+  const [desc, setDesc] = useState("");
 
   async function getInfo() {
     const response = await api("/");
@@ -20,15 +20,20 @@ function Container({ title, placeholder }) {
   }
 
   async function sendVideoInfos() {
-    console.log(title);
-    const response = await api(title === "Instagram" ? "/" : "/facebook", {
-      method: "POST",
-      data: {
-        id,
-      },
-    });
+    if (title !== "" && desc !== "" && id !== "") {
+      const response = await api(title === "Instagram" ? "/" : "/facebook", {
+        method: "POST",
+        data: {
+          id,
+          desc,
+          title: titulo,
+        },
+      });
 
-    window.location = response.data;
+      window.location = response.data;
+    } else {
+      alert("Preencha todos os campos!");
+    }
   }
 
   useEffect(() => {
@@ -45,23 +50,23 @@ function Container({ title, placeholder }) {
       <div className="video">
         <div className="infos">
           <h1>{title}</h1>
-          <input
+          {/* <input
             type="text"
             placeholder={placeholder}
             onChange={(e) => {
               return setId(e.target.value);
             }}
-          />
+          /> */}
           <input
             type="text"
             placeholder="Título"
             onChange={(e) => {
-              // return setTitulo(e.target.value);
+              return setTitulo(e.target.value);
             }}
           />
           <textarea
             onChange={(e) => {
-              // return setDesc(e.target.value);
+              return setDesc(e.target.value);
             }}
             placeholder="Descrição...."
           />
@@ -73,7 +78,21 @@ function Container({ title, placeholder }) {
             return (
               <div
                 key={video.id}
+                id={video.permalink}
                 className="block"
+                onClick={(e) => {
+                  document.querySelectorAll(".block").forEach((video) => {
+                    video.style.border = 0;
+                  });
+
+                  e.target.style.border = "5px solid purple";
+
+                  setId(
+                    e.target.id
+                      .split("https://www.instagram.com/p/")[1]
+                      .split("/")[0]
+                  );
+                }}
                 style={{
                   backgroundImage: "url(" + video.thumbnail_url + ")",
                 }}
